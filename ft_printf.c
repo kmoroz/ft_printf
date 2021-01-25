@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/22 17:48:45 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/25 20:31:57 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,14 @@ int	ft_isdigit(int argument)
 	return (0);
 }
 
-int			ft_atoi(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	int count;
-	int strtonum;
-	int isnegativenum;
+	size_t count;
 
 	count = 0;
-	strtonum = 0;
-	isnegativenum = 1;
-	while (str[count] == ' ' || str[count] == '\n' || str[count] == '\f'
-	|| str[count] == '\r' || str[count] == '\t' || str[count] == '\v')
+	while (str[count] != '\0')
 		count++;
-	if (str[count] == '-' || str[count] == '+')
-	{
-		if (str[count] == '-')
-			isnegativenum = -1;
-		count++;
-	}
-	while (str[count] >= '0' && str[count] <= '9')
-	{
-		strtonum = 10 * strtonum + (str[count] - '0');
-		count++;
-	}
-	if (isnegativenum == -1)
-		strtonum = strtonum * -1;
-	return (strtonum);
+	return (count);
 }
 
 void	initialise_struct(t_recipe *recipe)
@@ -64,9 +46,15 @@ void	initialise_struct(t_recipe *recipe)
 	recipe->length = 0;
 }
 
-int get_length()
+int		parse_length(t_recipe *recipe, const char **print_me)
 {
-
+	if (**print_me == 'l' || **print_me == 'h')
+	{
+		recipe->length = **print_me;
+		(*print_me)++;
+		return (1);
+	}
+	return (0);
 }
 
 char	parse_type(t_recipe *recipe, const char **print_me)
@@ -158,22 +146,55 @@ int	parse_flag(t_recipe *recipe, const char **print_me)
 	return (0);
 }
 
-int	parse(va_list *arguments, const char **print_me)
+int	parse(va_list *arguments, const char **print_me, t_recipe *recipe)
 {
-	t_recipe recipe;
-
-	initialise_struct(&recipe);
 	while ("the prophecy is real")
 	{
-		if (parse_flag(&recipe, print_me))
+		if (parse_flag(recipe, print_me))
 			continue;
-		parse_width(arguments, &recipe, print_me);
-		parse_precision(arguments, &recipe, print_me);
-		parse_type(&recipe, print_me);
+		parse_width(arguments, recipe, print_me);
+		parse_precision(arguments, recipe, print_me);
+		parse_length(recipe, print_me);
+		parse_type(recipe, print_me);
 		break ;
 	}
-	if (!recipe.type)
+	if (!recipe->type)
 		return (-1);
+}
+
+void write_padding(char padding_char, int len)
+{
+	//write(1, &padding_char, len);
+	while (len > 0){
+		write(1, &padding_char, 1);
+		len--;
+	}
+}
+
+void	print_char(va_list *arguments, const char **print_me, t_recipe recipe)
+{
+	wchar_t	c;
+
+	if (recipe.length == 'l')
+		c = va_arg(*arguments, wchar_t);
+	else
+		c = (char)va_arg(*arguments, int);
+	if (recipe.width && !recipe.minus_flag)
+	{
+		if (recipe.zero_flag)
+			write_padding('0', recipe.width - 1);
+		else
+			write_padding(' ', recipe.width - 1);
+	}
+	write(1, &c, 1);
+	if (recipe.width && recipe.minus_flag)
+		write_padding(' ', recipe.width - 1);
+}
+
+void	print(va_list *arguments, const char **print_me, t_recipe recipe)
+{
+	if (recipe.type == 'c')
+		print_char(arguments, print_me, recipe);
 }
 
 int	count_till_percent(const char *print_me)
@@ -181,7 +202,7 @@ int	count_till_percent(const char *print_me)
 	int length;
 
 	length = 0;
-	while (*print_me != '%')
+	while (*print_me && *print_me != '%')
 	{
 		length++;
 		print_me++;
@@ -191,16 +212,22 @@ int	count_till_percent(const char *print_me)
 
 int	ft_printf(const char *print_me, ...)
 {
-	va_list arguments;
-	int		length_till_percent;
+	va_list		arguments;
+	int			length_till_percent;
+	t_recipe	recipe;
 
-	length_till_percent = count_till_percent(print_me);
+	initialise_struct(&recipe);
 	va_start(arguments, print_me);
 	while (*print_me)
 	{
+		length_till_percent = count_till_percent(print_me);
 		write(1, print_me, length_till_percent);
 		print_me = print_me + length_till_percent;
-		parse(&arguments, &print_me);
+		if (*print_me)
+		{
+			parse(&arguments, &print_me, &recipe);
+			print(&arguments, &print_me, recipe);
+		}
 	}
 	va_end(arguments);
 }
@@ -209,6 +236,8 @@ int	main()
 {
 	double e;
 	e= 2.718281828;
-	//printf("poo %+-5.1f", e);  //poo +2.7
-	ft_printf("poo %+-*.*f", 5, 1, e);
+	//printf("poo %+-5.1f\n", e);  //poo +2.7
+	//ft_printf("poo %+-5.*f", 1, e);
+	ft_printf("hey hey%3cbye%3c\n", 'c', 'p');
+	printf("hey hey%3cbye%3c\n", 'c', 'p');
 }
