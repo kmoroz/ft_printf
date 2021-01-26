@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/25 20:31:57 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/26 17:11:36 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 #include <stddef.h>
 #include <unistd.h>
 #include "ft_printf.h"
+#include "./libft/libft.h"
 #include <stdio.h> //remove later
 
-int	ft_isdigit(int argument)
-{
-	if (argument >= '0' && argument <= '9')
-		return (1);
-	return (0);
-}
+/*
+** int	ft_isdigit(int argument)
+** {
+** 	if (argument >= '0' && argument <= '9')
+** 		return (1);
+** 	return (0);
+** }
+*/
 
 size_t	ft_strlen(const char *str)
 {
@@ -159,19 +162,19 @@ int	parse(va_list *arguments, const char **print_me, t_recipe *recipe)
 		break ;
 	}
 	if (!recipe->type)
-		return (-1);
+		return (0);
+	return (1);
 }
 
 void write_padding(char padding_char, int len)
 {
-	//write(1, &padding_char, len);
 	while (len > 0){
 		write(1, &padding_char, 1);
 		len--;
 	}
 }
 
-void	print_char(va_list *arguments, const char **print_me, t_recipe recipe)
+void	print_char(va_list *arguments, t_recipe recipe)
 {
 	wchar_t	c;
 
@@ -191,10 +194,10 @@ void	print_char(va_list *arguments, const char **print_me, t_recipe recipe)
 		write_padding(' ', recipe.width - 1);
 }
 
-void	print(va_list *arguments, const char **print_me, t_recipe recipe)
+void	print(va_list *arguments, t_recipe recipe)
 {
 	if (recipe.type == 'c')
-		print_char(arguments, print_me, recipe);
+		print_char(arguments, recipe);
 }
 
 int	count_till_percent(const char *print_me)
@@ -226,18 +229,9 @@ int	ft_printf(const char *print_me, ...)
 		if (*print_me)
 		{
 			parse(&arguments, &print_me, &recipe);
-			print(&arguments, &print_me, recipe);
+			print(&arguments, recipe);
 		}
 	}
 	va_end(arguments);
-}
-
-int	main()
-{
-	double e;
-	e= 2.718281828;
-	//printf("poo %+-5.1f\n", e);  //poo +2.7
-	//ft_printf("poo %+-5.*f", 1, e);
-	ft_printf("hey hey%3cbye%3c\n", 'c', 'p');
-	printf("hey hey%3cbye%3c\n", 'c', 'p');
+	return (1);
 }

@@ -5,14 +5,14 @@
 #                                                      +:+                     #
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/01/26 14:44:11 by ksmorozo      ########   odam.nl          #
+#    Created: 2020/11/10 19:37:56 by ksmorozo      #+#    #+#                  #
+#    Updated: 2021/01/26 14:44:01 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
-OBJ_FILES = ft_printf.o
-HEADER_FILES = ft_printf.h
+NAME = libft.a
+OBJ_FILES = ft_isdigit.o
+HEADER_FILES = libft.h
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
