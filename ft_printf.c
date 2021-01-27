@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/26 18:32:01 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/26 18:41:19 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	initialise_struct(t_recipe *recipe)
 	recipe->length = 0;
 }
 
-int	count_till_percent(const char *print_me)
+int		count_till_percent(const char *print_me)
 {
 	int length;
 
@@ -41,7 +41,7 @@ int	count_till_percent(const char *print_me)
 	return (length);
 }
 
-int	ft_printf(const char *print_me, ...)
+int		ft_printf(const char *print_me, ...)
 {
 	va_list		arguments;
 	int			length_till_percent;

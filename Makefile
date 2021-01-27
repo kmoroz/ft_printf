@@ -6,7 +6,7 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/01/26 18:34:47 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/01/27 11:49:37 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,16 @@ PROCESSOR_DIR = processor/
 PROCESSOR_OBJ_FILES = print.o \
 print_char.o write_padding.o
 
+LIBFT_DIR = libft/
+LIBFT =	libft.a
+
 CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(addprefix $(PARSE_DIR), $(PARSE_OBJ_FILES)) \
 $(addprefix $(PROCESSOR_DIR), $(PROCESSOR_OBJ_FILES))
+	cp $(LIBFT_DIR)/$(LIBFT) $(NAME)
 	ar rc $@ $^
 	ranlib $@
 
@@ -39,12 +43,12 @@ $(addprefix $(PROCESSOR_DIR), $(PROCESSOR_OBJ_FILES))
 clean:
 	rm -f $(OBJ_FILES) $(addprefix $(PARSE_DIR), $(PARSE_OBJ_FILES)) \
 $(addprefix $(PROCESSOR_DIR), $(PROCESSOR_OBJ_FILES))
+	make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(LIBFT_DIR)/$(LIBFT)
 
 re:
-	$(MAKE) fclean
-	$(MAKE) all
+	fclean all
 
 .PHONY: all clean fclean re
