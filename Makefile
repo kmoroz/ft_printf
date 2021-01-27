@@ -6,7 +6,7 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/01/27 11:49:37 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/01/27 13:34:03 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ print_char.o write_padding.o
 LIBFT_DIR = libft/
 LIBFT =	libft.a
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 all: $(NAME)
 
