@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/27 12:40:17 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/27 15:01:43 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,24 @@ int		count_till_percent(const char *print_me)
 int		ft_printf(const char *print_me, ...)
 {
 	va_list		arguments;
-	int			length_till_percent;
+	int			amount_printed;
 	t_recipe	recipe;
 
 	initialise_struct(&recipe);
+	amount_printed = 0;
 	va_start(arguments, print_me);
 	while (*print_me)
 	{
 		initialise_struct(&recipe);
-		length_till_percent = count_till_percent(print_me);
-		write(1, print_me, length_till_percent);
-		print_me = print_me + length_till_percent;
+		amount_printed += count_till_percent(print_me);
+		write(1, print_me, count_till_percent(print_me));
+		print_me = print_me + count_till_percent(print_me);
 		if (*print_me)
 		{
 			parse(&arguments, &print_me, &recipe);
-			print(&arguments, recipe);
+			amount_printed += print(&arguments, recipe);
 		}
 	}
 	va_end(arguments);
-	return (1);
+	return (amount_printed);
 }

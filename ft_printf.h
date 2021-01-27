@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 14:07:39 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/26 18:25:27 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/27 13:32:45 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int				parse_width(va_list *arguments, t_recipe *recipe,
 const char **print_me);
 char			parse_type(t_recipe *recipe, const char **print_me);
 int				parse_length(t_recipe *recipe, const char **print_me);
-void			print(va_list *arguments, t_recipe recipe);
-void			print_char(va_list *arguments, t_recipe recipe);
+int				print(va_list *arguments, t_recipe recipe);
+int				print_char(va_list *arguments, t_recipe recipe);
 void			write_padding(char padding_char, int len);
 
 #endif
