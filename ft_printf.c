@@ -6,14 +6,12 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/26 18:41:19 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/27 12:40:17 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include <unistd.h>
 #include "ft_printf.h"
-#include "./libft/libft.h"
 
 void	initialise_struct(t_recipe *recipe)
 {
@@ -51,6 +49,7 @@ int		ft_printf(const char *print_me, ...)
 	va_start(arguments, print_me);
 	while (*print_me)
 	{
+		initialise_struct(&recipe);
 		length_till_percent = count_till_percent(print_me);
 		write(1, print_me, length_till_percent);
 		print_me = print_me + length_till_percent;
