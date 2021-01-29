@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/29 17:46:54 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/29 18:58:54 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,9 @@ int		print_hex(va_list *arguments, t_recipe recipe)
 	unsigned long 		num; //why so huge
 	int					num_length;
 	char				*converted_num;
+	char				*hex_prefix;
 
+	hex_prefix = "0x";
 	if (recipe.length == 'l')
 		num = (unsigned long)va_arg(*arguments, long);
 	if (recipe.length == 'h')
@@ -121,6 +123,8 @@ int		print_hex(va_list *arguments, t_recipe recipe)
 	deal_with_left_pads(num_length, recipe);
 	deal_with_precision(num_length, recipe);
 	converted_num = ft_itoa_base(num, 16, num_length);
+	if (recipe.hash_flag && num)
+		write(1, hex_prefix, 2);
 	if (!recipe.null_precision)
 		write(1, converted_num, num_length);
 	deal_with_right_pads(num_length, recipe);
