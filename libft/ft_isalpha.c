@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   libft.h                                            :+:    :+:            */
+/*   ft_isalpha.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/10 11:43:49 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/29 14:01:01 by ksmorozo      ########   odam.nl         */
+/*   Created: 2020/11/19 10:25:31 by ksmorozo      #+#    #+#                 */
+/*   Updated: 2021/01/29 13:50:18 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-
-# include <stddef.h>
-
-int	ft_isdigit(int argument);
-int	ft_isalpha(int argument);
-
-#endif
+int	ft_isalpha(int argument)
+{
+	if ((argument >= 'a' && argument <= 'z')
+	|| (argument >= 'A' && argument <= 'Z'))
+		return (1);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/27 15:01:43 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/01/29 17:13:00 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	initialise_struct(t_recipe *recipe)
 	recipe->hash_flag = 0;
 	recipe->width = 0;
 	recipe->precision = 0;
+	recipe->null_precision = 0;
 	recipe->type = '\0';
 	recipe->length = 0;
 }
