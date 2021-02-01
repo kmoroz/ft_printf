@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/29 18:58:54 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/01 19:27:31 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,21 @@ int		count_hex_length(unsigned long num, t_recipe recipe)
 	return (count);
 }
 
+void	deal_with_prefix(t_recipe recipe)
+{
+	char	*hex_prefix;
+
+	hex_prefix = "0x";
+	if (recipe.hash_flag && !recipe.null_precision)
+		write(1, hex_prefix, 2);
+}
+
 void	deal_with_left_pads(int num_length, t_recipe recipe)
 {
 	if (recipe.width && !recipe.minus_flag && !recipe.precision)
 	{
 		if (recipe.zero_flag)
-		{
-			if (recipe.hash_flag)
-				write_padding('0', recipe.width - (num_length + 2));
 			write_padding('0', recipe.width - num_length);
-		}
 		else
 			write_padding(' ', recipe.width - num_length);
 	}
@@ -68,12 +73,7 @@ void	deal_with_precision(int num_length, t_recipe recipe)
 void	deal_with_right_pads(int num_length, t_recipe recipe)
 {
 	if (recipe.width && recipe.minus_flag && !recipe.precision)
-	{
-		if (recipe.hash_flag)
-			write_padding(' ', recipe.width - (num_length + 2));
-		else
-			write_padding(' ', recipe.width - num_length);
-	}
+		write_padding(' ', recipe.width - num_length);
 	if (recipe.width && recipe.minus_flag && recipe.precision)
 	{
 		if (recipe.precision < 0)
@@ -110,9 +110,9 @@ int		print_hex(va_list *arguments, t_recipe recipe)
 	unsigned long 		num; //why so huge
 	int					num_length;
 	char				*converted_num;
-	char				*hex_prefix;
 
-	hex_prefix = "0x";
+	if (recipe.precision)
+		recipe.zero_flag = 0;
 	if (recipe.length == 'l')
 		num = (unsigned long)va_arg(*arguments, long);
 	if (recipe.length == 'h')
@@ -120,11 +120,27 @@ int		print_hex(va_list *arguments, t_recipe recipe)
 	else
 		num = (unsigned int)va_arg(*arguments, int); //why is it casted as an unsigned it
 	num_length = count_hex_length(num, recipe);
-	deal_with_left_pads(num_length, recipe);
-	deal_with_precision(num_length, recipe);
 	converted_num = ft_itoa_base(num, 16, num_length);
 	if (recipe.hash_flag && num)
-		write(1, hex_prefix, 2);
+	{
+		if (recipe.zero_flag || recipe.width <= num_length + 2)
+		{
+			deal_with_prefix(recipe);
+			recipe.width -= 2;
+			recipe.hash_flag = 0;
+		}
+		else
+			recipe.width -= 2;
+	}
+	deal_with_left_pads(num_length, recipe);
+	if (recipe.hash_flag && num)
+	{
+		deal_with_prefix(recipe);
+		recipe.hash_flag = 0;
+	}
+	deal_with_precision(num_length, recipe);
+	if (recipe.hash_flag && num)
+		deal_with_prefix(recipe);
 	if (!recipe.null_precision)
 		write(1, converted_num, num_length);
 	deal_with_right_pads(num_length, recipe);
