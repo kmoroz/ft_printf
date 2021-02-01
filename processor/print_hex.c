@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/01 19:27:31 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/01 19:35:57 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ int		count_hex_length(unsigned long num, t_recipe recipe)
 		count++;
 	}
 	return (count);
+}
+
+int		deal_with_length(va_list *arguments, t_recipe recipe)
+{
+	int num;
+
+	if (recipe.length == 'l')
+		num = (unsigned long)va_arg(*arguments, long);
+	if (recipe.length == 'h')
+		num = (unsigned short)va_arg(*arguments, int);
+	else
+		num = (unsigned int)va_arg(*arguments, int); //why is it casted as an unsigned it
+	return (num);
 }
 
 void	deal_with_prefix(t_recipe recipe)
@@ -113,12 +126,7 @@ int		print_hex(va_list *arguments, t_recipe recipe)
 
 	if (recipe.precision)
 		recipe.zero_flag = 0;
-	if (recipe.length == 'l')
-		num = (unsigned long)va_arg(*arguments, long);
-	if (recipe.length == 'h')
-		num = (unsigned short)va_arg(*arguments, int);
-	else
-		num = (unsigned int)va_arg(*arguments, int); //why is it casted as an unsigned it
+	num = deal_with_length(arguments, recipe);
 	num_length = count_hex_length(num, recipe);
 	converted_num = ft_itoa_base(num, 16, num_length);
 	if (recipe.hash_flag && num)
