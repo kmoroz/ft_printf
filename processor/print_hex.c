@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/02 17:02:40 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/02 17:12:53 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,8 @@ int						print_hex(va_list *arguments, t_recipe recipe)
 	num = deal_with_length(arguments, recipe);
 	num_length = count_hex_length(num, recipe);
 	converted_num = ft_itoa_base(num, 16, num_length);
+	if (!converted_num)
+		return (-1);
 	if (recipe.hash_flag && num)
 	{
 		recipe.width -= 2;
