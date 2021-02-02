@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/02 15:51:53 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/02 16:44:30 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int						count_hex_length(unsigned long long int num, t_recipe recipe)
+int						count_hex_length(unsigned long long int num,
+t_recipe recipe)
 {
 	int count;
 
 	count = 0;
-	if (recipe.null_precision)
+	if (recipe.null_precision && !num)
 		return (0);
 	if (num == 0)
 		return (1);
@@ -45,7 +46,7 @@ unsigned long long int	deal_with_length(va_list *arguments, t_recipe recipe)
 	if (recipe.length == 'H')
 		num = (unsigned char)va_arg(*arguments, int);
 	if (!recipe.length)
-		num = (unsigned int)va_arg(*arguments, int); //why is it casted as an unsigned it
+		num = (unsigned int)va_arg(*arguments, int);
 	return (num);
 }
 
@@ -102,7 +103,8 @@ void					deal_with_right_pads(int num_length, t_recipe recipe)
 	}
 }
 
-char					*ft_itoa_base(unsigned long long int num, int base, int num_length)
+char					*ft_itoa_base(unsigned long long int num,
+int base, int num_length)
 {
 	char *str;
 
@@ -122,6 +124,30 @@ char					*ft_itoa_base(unsigned long long int num, int base, int num_length)
 	if (num == 0 && num_length)
 		str[0] = '0';
 	return (str);
+}
+
+int						calculate_amount_printed(unsigned long long int num,
+int num_length, t_recipe recipe)
+{
+	int amount_printed;
+
+	amount_printed = num_length;
+	if (recipe.null_precision && !num)
+		return (0);
+	if (recipe.hash_flag)
+	{
+		amount_printed += 2;
+		if (recipe.width >= recipe.precision && recipe.width > amount_printed)
+			return (recipe.width);
+		if (recipe.precision > amount_printed)
+			return (recipe.precision);
+		return (amount_printed);
+	}
+	if (recipe.width >= recipe.precision && recipe.width > amount_printed)
+		return (recipe.width);
+	if (recipe.precision > amount_printed)
+		return (recipe.precision);
+	return (amount_printed);
 }
 
 int						print_hex(va_list *arguments, t_recipe recipe)
@@ -155,9 +181,8 @@ int						print_hex(va_list *arguments, t_recipe recipe)
 	deal_with_precision(num_length, recipe);
 	if (recipe.hash_flag && num)
 		deal_with_prefix(recipe);
-	if (!recipe.null_precision)
-		write(1, converted_num, num_length);
+	write(1, converted_num, num_length);
 	deal_with_right_pads(num_length, recipe);
 	free(converted_num);
-	return (1);
+	return (calculate_amount_printed(num, num_length, recipe));
 }

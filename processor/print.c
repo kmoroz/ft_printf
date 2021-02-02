@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/26 18:08:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/02 14:59:51 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/02 16:39:58 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	print(va_list *arguments, t_recipe recipe)
 	if (recipe.type == 'c')
 		result_length = print_char(arguments, recipe);
 	if (recipe.type == 'x')
-		print_hex(arguments, recipe);
+		result_length = print_hex(arguments, recipe);
 	return (result_length);
 }
