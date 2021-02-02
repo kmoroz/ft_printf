@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/01 19:47:43 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/02 14:54:11 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int				count_hex_length(unsigned long num, t_recipe recipe)
+int						count_hex_length(unsigned long long int num, t_recipe recipe)
 {
 	int count;
 
@@ -32,20 +32,24 @@ int				count_hex_length(unsigned long num, t_recipe recipe)
 	return (count);
 }
 
-unsigned long	deal_with_length(va_list *arguments, t_recipe recipe)
+unsigned long long int	deal_with_length(va_list *arguments, t_recipe recipe)
 {
-	unsigned long num;
+	unsigned long long int num;
 
 	if (recipe.length == 'l')
 		num = (unsigned long)va_arg(*arguments, long);
 	if (recipe.length == 'h')
 		num = (unsigned short)va_arg(*arguments, int);
-	else
+	if (recipe.length == 'L')
+		num = va_arg(*arguments, int);
+	if (recipe.length == 'H')
+		num = (unsigned char)va_arg(*arguments, int);
+	if (!recipe.length)
 		num = (unsigned int)va_arg(*arguments, int); //why is it casted as an unsigned it
 	return (num);
 }
 
-void			deal_with_prefix(t_recipe recipe)
+void					deal_with_prefix(t_recipe recipe)
 {
 	char	*hex_prefix;
 
@@ -54,7 +58,7 @@ void			deal_with_prefix(t_recipe recipe)
 		write(1, hex_prefix, 2);
 }
 
-void			deal_with_left_pads(int num_length, t_recipe recipe)
+void					deal_with_left_pads(int num_length, t_recipe recipe)
 {
 	if (recipe.width && !recipe.minus_flag && !recipe.precision)
 	{
@@ -74,7 +78,7 @@ void			deal_with_left_pads(int num_length, t_recipe recipe)
 	}
 }
 
-void			deal_with_precision(int num_length, t_recipe recipe)
+void					deal_with_precision(int num_length, t_recipe recipe)
 {
 	if (recipe.precision)
 	{
@@ -83,7 +87,7 @@ void			deal_with_precision(int num_length, t_recipe recipe)
 	}
 }
 
-void			deal_with_right_pads(int num_length, t_recipe recipe)
+void					deal_with_right_pads(int num_length, t_recipe recipe)
 {
 	if (recipe.width && recipe.minus_flag && !recipe.precision)
 		write_padding(' ', recipe.width - num_length);
@@ -98,11 +102,13 @@ void			deal_with_right_pads(int num_length, t_recipe recipe)
 	}
 }
 
-char			*ft_itoa_base(unsigned long num, int base, int num_length)
+char					*ft_itoa_base(unsigned long long int num, int base, int num_length)
 {
 	char *str;
 
 	str = (char *)malloc(sizeof(char) * (num_length + 1));
+	if (!str)
+		return (NULL);
 	str[num_length] = '\0';
 	while (num)
 	{
@@ -118,11 +124,11 @@ char			*ft_itoa_base(unsigned long num, int base, int num_length)
 	return (str);
 }
 
-int				print_hex(va_list *arguments, t_recipe recipe)
+int						print_hex(va_list *arguments, t_recipe recipe)
 {
-	unsigned long		num; //why so huge
-	int					num_length;
-	char				*converted_num;
+	unsigned long long int	num; //why so huge
+	int						num_length;
+	char					*converted_num;
 
 	if (recipe.precision)
 		recipe.zero_flag = 0;
