@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/02 14:54:11 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/02 15:51:53 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ unsigned long long int	deal_with_length(va_list *arguments, t_recipe recipe)
 	if (recipe.length == 'h')
 		num = (unsigned short)va_arg(*arguments, int);
 	if (recipe.length == 'L')
-		num = va_arg(*arguments, int);
+		num = va_arg(*arguments, long long);
 	if (recipe.length == 'H')
 		num = (unsigned char)va_arg(*arguments, int);
 	if (!recipe.length)
