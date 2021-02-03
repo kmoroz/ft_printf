@@ -6,11 +6,12 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/02 17:12:53 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/03 12:23:52 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include "../libft/libft.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -103,29 +104,6 @@ void					deal_with_right_pads(int num_length, t_recipe recipe)
 	}
 }
 
-char					*ft_itoa_base(unsigned long long int num,
-int base, int num_length)
-{
-	char *str;
-
-	str = (char *)malloc(sizeof(char) * (num_length + 1));
-	if (!str)
-		return (NULL);
-	str[num_length] = '\0';
-	while (num)
-	{
-		num_length--;
-		if (num % base < 10)
-			str[num_length] = num % base + '0';
-		else
-			str[num_length] = num % base + 'a' - 10;
-		num = num / base;
-	}
-	if (num == 0 && num_length)
-		str[0] = '0';
-	return (str);
-}
-
 int						calculate_amount_printed(unsigned long long int num,
 int num_length, t_recipe recipe)
 {
@@ -160,7 +138,7 @@ int						print_hex(va_list *arguments, t_recipe recipe)
 		recipe.zero_flag = 0;
 	num = deal_with_length(arguments, recipe);
 	num_length = count_hex_length(num, recipe);
-	converted_num = ft_itoa_base(num, 16, num_length);
+	converted_num = ft_itoa_base(num, 16, "0123456789abcdef");
 	if (!converted_num)
 		return (-1);
 	if (recipe.hash_flag && num)
