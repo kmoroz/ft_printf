@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/03 12:23:52 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/03 16:29:30 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void					deal_with_prefix(t_recipe recipe)
 	char	*hex_prefix;
 
 	hex_prefix = "0x";
-	if (recipe.hash_flag && !recipe.null_precision)
+	if (recipe.hash_flag)
 		write(1, hex_prefix, 2);
 }
 
