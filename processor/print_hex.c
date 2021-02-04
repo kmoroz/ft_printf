@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/03 16:29:30 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/04 09:58:56 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int						count_hex_length(unsigned long long int num,
-t_recipe recipe)
-{
-	int count;
-
-	count = 0;
-	if (recipe.null_precision && !num)
-		return (0);
-	if (num == 0)
-		return (1);
-	while (num)
-	{
-		num = num / 16;
-		count++;
-	}
-	return (count);
-}
-
-unsigned long long int	deal_with_length(va_list *arguments, t_recipe recipe)
+static unsigned long long int	deal_with_length(va_list *arguments, t_recipe recipe)
 {
 	unsigned long long int num;
 
@@ -137,7 +119,7 @@ int						print_hex(va_list *arguments, t_recipe recipe)
 	if (recipe.precision)
 		recipe.zero_flag = 0;
 	num = deal_with_length(arguments, recipe);
-	num_length = count_hex_length(num, recipe);
+	num_length = count_num_length(num, 16, recipe);
 	converted_num = ft_itoa_base(num, 16, "0123456789abcdef");
 	if (!converted_num)
 		return (-1);
