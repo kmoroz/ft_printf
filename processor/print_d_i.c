@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/03 17:05:59 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/04 14:15:35 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/04 15:06:19 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		deal_with_length(va_list *arguments, t_recipe recipe)
 	return (num);
 }
 
-void	write_number(long long num, char *converted_num,
+void	write_number(char *converted_num,
 int num_length, t_recipe recipe)
 {
 	if (*converted_num == '-')
@@ -40,14 +40,11 @@ int num_length, t_recipe recipe)
 		num_length--;
 		converted_num++;
 	}
-	if (recipe.plus_flag && (num < 0 && !recipe.zero_flag))
+	if (recipe.plus_flag && !recipe.zero_flag)
 	{
-		if (num < 0)
-			write(1, "-", 1);
-		else
-			write(1, "+", 1);
+		write(1, "+", 1);
 	}
-	if (recipe.space_flag)
+	if (recipe.space_flag && !recipe.zero_flag)
 		write(1, " ", 1);
 	if (recipe.precision)
 		write_padding('0', recipe.precision - num_length);
@@ -65,16 +62,20 @@ int		print_d_i(va_list *arguments, t_recipe recipe)
 	if (recipe.precision)
 		recipe.zero_flag = 0;
 	num = deal_with_length(arguments, recipe);
+	if (num < 0)
+	{
+		recipe.plus_flag = 0;
+		recipe.space_flag = 0;
+	}
 	num_length = count_num_length(num, 10, recipe);
-	if (recipe.space_flag || recipe.plus_flag ||
-	(recipe.precision && recipe.precision > num_length))
+	if (recipe.precision && recipe.precision > num_length)
 	{
 		recipe.width -= (recipe.precision + recipe.space_flag + recipe.plus_flag);
 		if (num < 0)
 			recipe.width--;
 	}
 	else
-		recipe.width -= num_length;
+		recipe.width -= (num_length + recipe.plus_flag + recipe.space_flag);
 	converted_number = ft_itoa_base(num, 10, "0123456789");
 	if (recipe.width && !recipe.minus_flag)
 	{
@@ -86,12 +87,16 @@ int		print_d_i(va_list *arguments, t_recipe recipe)
 				converted_number++;
 				num_length--;
 			}
+			if (recipe.plus_flag)
+				write(1, "+", 1);
+			if (recipe.space_flag)
+				write(1, " ", 1);
 			write_padding('0', recipe.width);
 		}
 		else
 			write_padding(' ', recipe.width);
 	}
-	write_number(num, converted_number, num_length, recipe);
+	write_number(converted_number, num_length, recipe);
 	if (recipe.width && recipe.minus_flag)
 		write_padding(' ', recipe.width);
 	return (num_length + recipe.space_flag + recipe.plus_flag + recipe.width);
