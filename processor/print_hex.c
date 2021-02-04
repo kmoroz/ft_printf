@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/04 09:58:56 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/04 15:54:58 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void					deal_with_prefix(t_recipe recipe)
 {
 	char	*hex_prefix;
 
-	hex_prefix = "0x";
+	if (recipe.type == 'x')
+		hex_prefix = "0x";
+	if (recipe.type == 'X')
+		hex_prefix = "0X";
 	if (recipe.hash_flag)
 		write(1, hex_prefix, 2);
 }
@@ -120,7 +123,10 @@ int						print_hex(va_list *arguments, t_recipe recipe)
 		recipe.zero_flag = 0;
 	num = deal_with_length(arguments, recipe);
 	num_length = count_num_length(num, 16, recipe);
-	converted_num = ft_itoa_base(num, 16, "0123456789abcdef");
+	if (recipe.type == 'x')
+		converted_num = ft_itoa_base(num, 16, "0123456789abcdef");
+	else
+		converted_num = ft_itoa_base(num, 16, "0123456789ABCDEF");
 	if (!converted_num)
 		return (-1);
 	if (recipe.hash_flag && num)
