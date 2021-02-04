@@ -6,20 +6,25 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/03 10:38:22 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/03 12:08:59 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/04 10:37:59 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <stdlib.h>
 
-static int	count_converted_num_length(unsigned long long int number, int base)
+static int	count_converted_num_length(long long int number, int base)
 {
 	int count;
 
 	count = 0;
 	if (number == 0)
 		return (1);
+	if (number < 0)
+	{
+		number = number * -1;
+		count++;
+	}
 	while (number)
 	{
 		number = number / base;
@@ -28,7 +33,7 @@ static int	count_converted_num_length(unsigned long long int number, int base)
 	return (count);
 }
 
-char	*ft_itoa_base(unsigned long long int number, int base, char *digits_str)
+char	*ft_itoa_base(long long int number, int base, char *digits_str)
 {
 	char	*conversion;
 	int		num_length;
@@ -38,16 +43,21 @@ char	*ft_itoa_base(unsigned long long int number, int base, char *digits_str)
 	if (!conversion)
 		return (NULL);
 	conversion[num_length] = '\0';
+	if (number == 0)
+	{
+		conversion[0] = '0';
+		return (conversion);
+	}
+	if (number < 0 && base == 10)
+	{
+		conversion[0] = '-';
+		number = number * -1;
+	}
 	while (number)
 	{
 		num_length--;
-		if (number % base < 10)
-			conversion[num_length] = number % base + '0';
-		else
-			conversion[num_length] = digits_str[number % base];
+		conversion[num_length] = digits_str[number % base];
 		number = number / base;
 	}
-	if (number == 0 && num_length)
-		conversion[0] = '0';
 	return (conversion);
 }
