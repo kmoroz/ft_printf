@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/03 17:05:59 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/04 15:06:19 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/04 15:25:08 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/libft.h"
 #include "unistd.h"
 
-int		deal_with_length(va_list *arguments, t_recipe recipe)
+long long	deal_with_length(va_list *arguments, t_recipe recipe)
 {
 	long long int num;
 
