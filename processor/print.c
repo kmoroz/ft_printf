@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/26 18:08:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 11:34:01 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 16:25:06 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int	print(va_list *arguments, t_recipe recipe)
 		result_length = print_percent(recipe);
 	if (recipe.type == 'p')
 		result_length = print_ptr(arguments, recipe);
+	if (recipe.type == 's')
+		result_length = print_str(arguments, recipe);
 	return (result_length);
 }
