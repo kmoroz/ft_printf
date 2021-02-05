@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_d_i.c                                        :+:    :+:            */
+/*   print_d_i_u.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/02/03 17:05:59 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 10:53:03 by ksmorozo      ########   odam.nl         */
+/*   Created: 2021/02/05 11:03:38 by ksmorozo      #+#    #+#                 */
+/*   Updated: 2021/02/05 11:03:53 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int num_length, t_recipe recipe)
 	write(1, converted_num, num_length);
 }
 
-int		print_d_i(va_list *arguments, t_recipe recipe)
+int		print_d_i_u(va_list *arguments, t_recipe recipe)
 {
 	long long int	num;
 	int				num_length;
