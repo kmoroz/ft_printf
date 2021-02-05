@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 14:10:53 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 17:19:51 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 17:25:30 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	print_str(va_list *arguments, t_recipe recipe)
 		write(1, str, str_len);
 	if (recipe.width && recipe.minus_flag)
 		deal_with_right_pads(&str_len, recipe);
-	return (1);
+	if (recipe.width && recipe.width >= str_len)
+		return (recipe.width);
+	return (str_len);
 }
 
