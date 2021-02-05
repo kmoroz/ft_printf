@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 14:10:53 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 16:42:38 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 17:19:51 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	deal_with_left_pads(int *str_len, t_recipe recipe)
 
 static void	deal_with_precision(int *str_len, t_recipe recipe)
 {
-	if (recipe.precision && recipe.precision <= *str_len)
+	if (recipe.precision > 0 && recipe.precision <= *str_len)
 		*str_len = recipe.precision;
 }
 
