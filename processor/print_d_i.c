@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/03 17:05:59 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/04 15:25:08 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 10:53:03 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../libft/libft.h"
 #include "unistd.h"
 
-long long	deal_with_length(va_list *arguments, t_recipe recipe)
+long long			deal_with_length_signed(va_list *arguments, t_recipe recipe)
 {
 	long long int num;
 
@@ -29,6 +29,32 @@ long long	deal_with_length(va_list *arguments, t_recipe recipe)
 	if (!recipe.length)
 		num = (int)va_arg(*arguments, int);
 	return (num);
+}
+
+unsigned long long	deal_with_length_unsigned(va_list *arguments,
+t_recipe recipe)
+{
+	unsigned long long num;
+
+	if (recipe.length == 'l')
+		num = (unsigned long)va_arg(*arguments, unsigned long);
+	if (recipe.length == 'h')
+		num = (unsigned short)va_arg(*arguments, unsigned int);
+	if (recipe.length == 'L')
+		num = va_arg(*arguments, unsigned long long);
+	if (recipe.length == 'H')
+		num = (unsigned char)va_arg(*arguments, unsigned int);
+	if (!recipe.length)
+		num = (unsigned int)va_arg(*arguments, unsigned int);
+	return (num);
+}
+
+unsigned long long	handle_length_specifier(va_list *arguments, t_recipe recipe)
+{
+	if (recipe.type == 'd' || recipe.type == 'i')
+		return (deal_with_length_signed(arguments, recipe));
+	else
+		return (deal_with_length_unsigned(arguments, recipe));
 }
 
 void	write_number(char *converted_num,
@@ -61,7 +87,7 @@ int		print_d_i(va_list *arguments, t_recipe recipe)
 		recipe.space_flag = 0;
 	if (recipe.precision)
 		recipe.zero_flag = 0;
-	num = deal_with_length(arguments, recipe);
+	num = handle_length_specifier(arguments, recipe);
 	if (num < 0)
 	{
 		recipe.plus_flag = 0;
