@@ -6,13 +6,14 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 11:03:38 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 11:03:53 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 11:21:31 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 #include "../libft/libft.h"
-#include "unistd.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 long long			deal_with_length_signed(va_list *arguments, t_recipe recipe)
 {
@@ -125,5 +126,6 @@ int		print_d_i_u(va_list *arguments, t_recipe recipe)
 	write_number(converted_number, num_length, recipe);
 	if (recipe.width && recipe.minus_flag)
 		write_padding(' ', recipe.width);
+	free(converted_number);
 	return (num_length + recipe.space_flag + recipe.plus_flag + recipe.width);
 }
