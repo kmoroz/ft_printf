@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/26 17:26:04 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/04 15:43:33 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 16:54:10 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	parse_precision(va_list *arguments, t_recipe *recipe, const char **print_me)
 		(*print_me)++;
 		if (ft_isalpha(**print_me))
 			recipe->null_precision = 1;
-		if (**print_me == '0')
+		while (**print_me == '0')
 		{
 			recipe->null_precision = 1;
 			(*print_me)++;
@@ -30,8 +30,9 @@ int	parse_precision(va_list *arguments, t_recipe *recipe, const char **print_me)
 			recipe->precision = va_arg(*arguments, int);
 			(*print_me)++;
 		}
-		while (ft_isdigit(**print_me) && !recipe->null_precision)
+		while (ft_isdigit(**print_me))
 		{
+			recipe->null_precision = 0;
 			recipe->precision = (recipe->precision * 10) + (**print_me - '0');
 			(*print_me)++;
 		}
