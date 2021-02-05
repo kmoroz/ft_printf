@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 11:03:38 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 11:21:31 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 16:21:20 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		print_d_i_u(va_list *arguments, t_recipe recipe)
 	long long int	num;
 	int				num_length;
 	char			*converted_number;
+	char			*temp;
 
 	if (recipe.space_flag && recipe.plus_flag)
 		recipe.space_flag = 0;
@@ -104,6 +105,7 @@ int		print_d_i_u(va_list *arguments, t_recipe recipe)
 	else
 		recipe.width -= (num_length + recipe.plus_flag + recipe.space_flag);
 	converted_number = ft_itoa_base(num, 10, "0123456789");
+	temp = converted_number;
 	if (recipe.width && !recipe.minus_flag)
 	{
 		if (recipe.zero_flag)
@@ -126,6 +128,6 @@ int		print_d_i_u(va_list *arguments, t_recipe recipe)
 	write_number(converted_number, num_length, recipe);
 	if (recipe.width && recipe.minus_flag)
 		write_padding(' ', recipe.width);
-	free(converted_number);
+	free(temp);
 	return (num_length + recipe.space_flag + recipe.plus_flag + recipe.width);
 }
