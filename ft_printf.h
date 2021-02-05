@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 14:07:39 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 10:59:49 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/05 11:36:32 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ t_recipe recipe);
 int				print_hex(va_list *arguments, t_recipe recipe);
 int				print_d_i_u(va_list *arguments, t_recipe recipe);
 int				print_percent(t_recipe recipe);
+int				print_ptr(va_list *arguments, t_recipe recipe);
 
 #endif
