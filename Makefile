@@ -6,7 +6,7 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/02/05 16:25:52 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/02/08 14:54:53 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ PROCESSOR_OBJ_FILES = print.o \
 print_char.o write_padding.o \
 print_hex.o count_num_length.o \
 print_d_i_u.o print_percent.o \
-print_ptr.o print_str.o
+print_ptr.o print_str.o \
+print_d_i_u_utils.o
 
 LIBFT_DIR = libft/
 LIBFT =	libft.a
