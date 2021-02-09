@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 11:03:38 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/08 14:56:58 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/09 11:02:21 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int			print_d_i_u(va_list *arguments, t_recipe recipe)
 	num_length = count_num_length(num, 10, recipe);
 	padding_len = count_padding_len(recipe, num_length, num);
 	converted_number = ft_itoa_base(num, 10, "0123456789");
+	if (!converted_number)
+		return (-1);
 	temp = converted_number;
 	deal_with_left_pads(recipe, num, &num_length, &converted_number);
 	write_number(converted_number, num_length, recipe);

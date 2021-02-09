@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/01/29 17:13:00 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/09 11:33:00 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ int		ft_printf(const char *print_me, ...)
 		if (*print_me)
 		{
 			parse(&arguments, &print_me, &recipe);
-			amount_printed += print(&arguments, recipe);
+			if (print(&arguments, recipe) == -1)
+				return (-1);
+			else
+				amount_printed += print(&arguments, recipe);
 		}
 	}
 	va_end(arguments);
