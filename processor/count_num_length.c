@@ -6,13 +6,13 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/03 17:41:33 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/04 10:09:48 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/08 14:41:49 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-int						count_num_length(long long int num, int base,
+int	count_num_length(long long int num, int base,
 t_recipe recipe)
 {
 	int count;

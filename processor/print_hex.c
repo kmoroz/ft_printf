@@ -6,64 +6,15 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/08 15:41:15 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/09 10:52:34 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#include "../libft/libft.h"
-#include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static unsigned long long	deal_with_length(va_list *arguments,
-t_recipe recipe)
-{
-	unsigned long long int num;
-
-	if (recipe.length == 'l')
-		num = (unsigned long)va_arg(*arguments, long);
-	if (recipe.length == 'h')
-		num = (unsigned short)va_arg(*arguments, int);
-	if (recipe.length == 'L')
-		num = va_arg(*arguments, long long);
-	if (recipe.length == 'H')
-		num = (unsigned char)va_arg(*arguments, int);
-	if (!recipe.length)
-		num = (unsigned int)va_arg(*arguments, int);
-	return (num);
-}
-
-char						*handle_conversion(unsigned long long num,
-t_recipe recipe)
-{
-	char *converted_num;
-
-	if (recipe.type == 'x')
-		converted_num = ft_itoa_base(num, 16, "0123456789abcdef");
-	else
-		converted_num = ft_itoa_base(num, 16, "0123456789ABCDEF");
-	return (converted_num);
-}
-
-void						deal_with_prefix(t_recipe *recipe,
-unsigned long long num)
-{
-	char	*hex_prefix;
-
-	if (recipe->hash_flag && num)
-	{
-		if (recipe->type == 'x')
-			hex_prefix = "0x";
-		if (recipe->type == 'X')
-			hex_prefix = "0X";
-		if (recipe->hash_flag)
-			write(1, hex_prefix, 2);
-	}
-	recipe->hash_flag = 0;
-}
-
-void						deal_with_left_pads(int num_length,
+void	deal_with_left_pads(int num_length,
 t_recipe *recipe)
 {
 	if (recipe->width && !recipe->minus_flag && !recipe->precision)
@@ -84,7 +35,7 @@ t_recipe *recipe)
 	}
 }
 
-void						deal_with_precision(int num_length, t_recipe recipe)
+void	deal_with_precision(int num_length, t_recipe recipe)
 {
 	if (recipe.precision)
 	{
@@ -93,7 +44,7 @@ void						deal_with_precision(int num_length, t_recipe recipe)
 	}
 }
 
-void						deal_with_right_pads(int num_length,
+void	deal_with_right_pads(int num_length,
 t_recipe recipe)
 {
 	if (recipe.width && recipe.minus_flag && !recipe.precision)
@@ -109,7 +60,7 @@ t_recipe recipe)
 	}
 }
 
-int							calculate_amount_printed(unsigned long long int num,
+int		calculate_amount_printed(unsigned long long int num,
 int num_length, t_recipe recipe)
 {
 	int amount_printed;
@@ -133,7 +84,7 @@ int num_length, t_recipe recipe)
 	return (amount_printed);
 }
 
-int							print_hex(va_list *arguments, t_recipe recipe)
+int		print_hex(va_list *arguments, t_recipe recipe)
 {
 	unsigned long long int	num;
 	int						num_length;

@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 14:07:39 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/08 14:53:49 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/09 10:47:30 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ void				write_padding(char padding_char, int len);
 int					count_num_length(long long int num, int base,
 t_recipe recipe);
 int					print_hex(va_list *arguments, t_recipe recipe);
+unsigned long long	deal_with_length(va_list *arguments,
+t_recipe recipe);
+char				*handle_conversion(unsigned long long num,
+t_recipe recipe);
+void				deal_with_prefix(t_recipe *recipe,
+unsigned long long num);
 int					print_d_i_u(va_list *arguments, t_recipe recipe);
 long long			deal_with_length_signed(va_list *arguments,
 t_recipe recipe);
