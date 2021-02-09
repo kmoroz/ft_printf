@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/09 10:52:34 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/09 10:58:30 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	deal_with_left_pads(int num_length,
+static void	deal_with_left_pads(int num_length,
 t_recipe *recipe)
 {
 	if (recipe->width && !recipe->minus_flag && !recipe->precision)
@@ -35,7 +35,7 @@ t_recipe *recipe)
 	}
 }
 
-void	deal_with_precision(int num_length, t_recipe recipe)
+static void	deal_with_precision(int num_length, t_recipe recipe)
 {
 	if (recipe.precision)
 	{
@@ -44,7 +44,7 @@ void	deal_with_precision(int num_length, t_recipe recipe)
 	}
 }
 
-void	deal_with_right_pads(int num_length,
+static void	deal_with_right_pads(int num_length,
 t_recipe recipe)
 {
 	if (recipe.width && recipe.minus_flag && !recipe.precision)
@@ -60,7 +60,7 @@ t_recipe recipe)
 	}
 }
 
-int		calculate_amount_printed(unsigned long long int num,
+static int	calculate_amount_printed(unsigned long long int num,
 int num_length, t_recipe recipe)
 {
 	int amount_printed;
@@ -84,7 +84,7 @@ int num_length, t_recipe recipe)
 	return (amount_printed);
 }
 
-int		print_hex(va_list *arguments, t_recipe recipe)
+int			print_hex(va_list *arguments, t_recipe recipe)
 {
 	unsigned long long int	num;
 	int						num_length;

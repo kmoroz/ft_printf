@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 14:10:53 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/05 17:28:04 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/09 10:56:30 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	deal_with_right_pads(int *str_len, t_recipe recipe)
 		write_padding(' ', recipe.width - *str_len);
 }
 
-int	print_str(va_list *arguments, t_recipe recipe)
+int			print_str(va_list *arguments, t_recipe recipe)
 {
 	char	*str;
 	int		str_len;
@@ -64,4 +64,3 @@ int	print_str(va_list *arguments, t_recipe recipe)
 		return (recipe.width);
 	return (str_len);
 }
-
