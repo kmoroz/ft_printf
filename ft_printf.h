@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 14:07:39 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/09 10:47:30 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/09 17:45:34 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct		s_recipe
 	int			width;
 	int			precision;
 	int			null_precision;
-	char		type;
 	char		length;
+	char		type;
 }					t_recipe;
 
 int					ft_printf(const char *print_me, ...);
