@@ -6,12 +6,13 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/09 17:45:10 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/10 16:58:02 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 void	initialise_struct(t_recipe *recipe)
 {
@@ -27,43 +28,62 @@ void	initialise_struct(t_recipe *recipe)
 	recipe->type = '\0';
 }
 
-int		count_till_percent(const char *print_me)
+int		check_percent(const char *print_me)
 {
-	int length;
-
-	length = 0;
-	while (*print_me && *print_me != '%')
+	while (*print_me)
 	{
-		length++;
+		if (*print_me == '%')
+			return (1);
 		print_me++;
 	}
-	return (length);
+	return (0);
+}
+
+int		print_till_percent(const char **print_me)
+{
+	int		length;
+	char	*buff;
+
+	length = 0;
+	buff = (char*)*print_me;
+	while (*buff)
+	{
+		if (*buff == '%')
+		{
+			write(1, *print_me, length);
+			(*print_me) += length;
+			return (length);
+		}
+		length++;
+		buff++;
+	}
+	return (0);
 }
 
 int		ft_printf(const char *print_me, ...)
 {
 	va_list		arguments;
-	int			amount_printed;
+	int			amount_to_be_printed;
 	t_recipe	recipe;
 	int			print_return;
 
-	amount_printed = 0;
 	va_start(arguments, print_me);
-	while (*print_me)
+	while (check_percent(print_me))
 	{
 		initialise_struct(&recipe);
-		amount_printed += count_till_percent(print_me);
-		write(1, print_me, count_till_percent(print_me));
-		print_me = print_me + count_till_percent(print_me);
-		if (*print_me)
-		{
-			parse(&arguments, &print_me, &recipe);
-			print_return = print(&arguments, recipe);
-			if (print_return < 0)
-				return (-1);
-			amount_printed += print_return;
-		}
+		amount_to_be_printed = print_till_percent(&print_me);
+		if (!parse(&arguments, &print_me, &recipe))
+			return (-1);
+		print_return = print(&arguments, recipe);
+		if (print_return < 0)
+			return (-1);
+		amount_to_be_printed += print_return;
+	}
+	if (*print_me)
+	{
+		write(1, print_me, ft_strlen(print_me));
+		amount_to_be_printed += ft_strlen(print_me);
 	}
 	va_end(arguments);
-	return (amount_printed);
+	return (amount_to_be_printed);
 }
