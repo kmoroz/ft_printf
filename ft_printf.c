@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 13:54:43 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/10 16:58:02 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/11 12:29:11 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ int		ft_printf(const char *print_me, ...)
 	int			print_return;
 
 	va_start(arguments, print_me);
+	amount_to_be_printed = 0;
 	while (check_percent(print_me))
 	{
 		initialise_struct(&recipe);
-		amount_to_be_printed = print_till_percent(&print_me);
+		amount_to_be_printed += print_till_percent(&print_me);
 		if (!parse(&arguments, &print_me, &recipe))
 			return (-1);
 		print_return = print(&arguments, recipe);
