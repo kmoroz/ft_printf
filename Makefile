@@ -6,37 +6,41 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/02/09 10:48:07 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/02/11 12:21:25 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
-OBJ_FILES = ft_printf.o
+SRC_FILE = ft_printf.c
 HEADER_FILES = ft_printf.h
 
 PARSE_DIR = parser/
-PARSE_OBJ_FILES = parse.o \
-parse_flag.o parse_width.o \
-parse_length.o parse_precision.o \
-parse_type.o
+PARSE_SRC_FILES = parse.c \
+parse_flag.c parse_width.c \
+parse_length.c parse_precision.c \
+parse_type.c
 
 PROCESSOR_DIR = processor/
-PROCESSOR_OBJ_FILES = print.o \
-print_char.o write_padding.o \
-print_hex.o count_num_length.o \
-print_d_i_u.o print_percent.o \
-print_ptr.o print_str.o \
-print_d_i_u_utils.o print_hex_utils.o
+PROCESSOR_SRC_FILES = print.c \
+print_char.c write_padding.c \
+print_hex.c count_num_length.c \
+print_d_i_u.c print_percent.c \
+print_ptr.c print_str.c \
+print_d_i_u_utils.c print_hex_utils.c
 
 LIBFT_DIR = libft/
 LIBFT =	libft.a
 
 CFLAGS = -g -Wall -Wextra -Werror
 
+OBJ_FILES = $(SRC_FILE:.c=.o) \
+$(addprefix $(PARSE_DIR), $(PARSE_SRC_FILES:.c=.o)) \
+$(addprefix $(PROCESSOR_DIR), $(PROCESSOR_SRC_FILES:.c=.o))
+
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES) $(addprefix $(PARSE_DIR), $(PARSE_OBJ_FILES)) \
-$(addprefix $(PROCESSOR_DIR), $(PROCESSOR_OBJ_FILES))
+$(NAME): $(OBJ_FILES)
+	make -C $(LIBFT_DIR)
 	cp $(LIBFT_DIR)/$(LIBFT) $(NAME)
 	ar rc $@ $^
 	ranlib $@
@@ -45,14 +49,12 @@ $(addprefix $(PROCESSOR_DIR), $(PROCESSOR_OBJ_FILES))
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f $(OBJ_FILES) $(addprefix $(PARSE_DIR), $(PARSE_OBJ_FILES)) \
-$(addprefix $(PROCESSOR_DIR), $(PROCESSOR_OBJ_FILES))
+	rm -f $(OBJ_FILES)
 	make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	rm -f $(NAME) $(LIBFT_DIR)/$(LIBFT)
 
-re:
-	fclean all
+re: fclean all
 
 .PHONY: all clean fclean re
