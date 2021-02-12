@@ -6,7 +6,7 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/02/11 12:21:25 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/02/12 15:33:15 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
 	make -C $(LIBFT_DIR)
-	cp $(LIBFT_DIR)/$(LIBFT) $(NAME)
+	cp $(LIBFT_DIR)$(LIBFT) $(NAME)
 	ar rc $@ $^
 	ranlib $@
 
@@ -53,7 +53,7 @@ clean:
 	make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -f $(NAME) $(LIBFT_DIR)/$(LIBFT)
+	rm -f $(NAME) $(LIBFT_DIR)$(LIBFT)
 
 re: fclean all
 
