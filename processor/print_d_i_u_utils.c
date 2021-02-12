@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/08 14:44:59 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/08 14:47:51 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/12 16:02:06 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,24 @@ unsigned long long	handle_length_specifier(va_list *arguments, t_recipe recipe)
 		return (deal_with_length_signed(arguments, recipe));
 	else
 		return (deal_with_length_unsigned(arguments, recipe));
+}
+
+int					count_padding_len(t_recipe recipe, int num_length,
+long long num)
+{
+	int padding_len;
+
+	padding_len = recipe.width;
+	if (num < 0 && recipe.precision == num_length)
+		padding_len--;
+	if (recipe.precision && recipe.precision > num_length)
+	{
+		padding_len -= (recipe.precision + recipe.space_flag
+		+ recipe.plus_flag);
+		if (num < 0)
+			padding_len--;
+	}
+	else
+		padding_len -= (num_length + recipe.plus_flag + recipe.space_flag);
+	return (padding_len);
 }

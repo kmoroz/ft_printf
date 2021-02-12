@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/03 10:38:22 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/04 10:37:59 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/12 16:04:04 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	count_converted_num_length(long long int number, int base)
 	return (count);
 }
 
-char	*ft_itoa_base(long long int number, int base, char *digits_str)
+char		*ft_itoa_base(long long int number, int base, char *digits_str)
 {
 	char	*conversion;
 	int		num_length;

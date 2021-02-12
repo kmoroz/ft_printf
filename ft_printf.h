@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 14:07:39 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/09 17:45:34 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/12 16:02:35 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ unsigned long long	deal_with_length_unsigned(va_list *arguments,
 t_recipe recipe);
 unsigned long long	handle_length_specifier(va_list *arguments,
 t_recipe recipe);
+int					count_padding_len(t_recipe recipe, int num_length,
+long long num);
 int					print_percent(t_recipe recipe);
 int					print_ptr(va_list *arguments, t_recipe recipe);
 int					print_str(va_list *arguments, t_recipe recipe);

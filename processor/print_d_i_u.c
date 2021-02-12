@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 11:03:38 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/11 18:24:44 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/12 16:01:25 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,6 @@
 #include "../libft/libft.h"
 #include <unistd.h>
 #include <stdlib.h>
-
-static int	count_padding_len(t_recipe recipe, int num_length, long long num)
-{
-	int padding_len;
-
-	padding_len = recipe.width;
-	if (num < 0 && recipe.precision == num_length)
-		padding_len--;
-	if (recipe.precision && recipe.precision > num_length)
-	{
-		padding_len -= (recipe.precision + recipe.space_flag
-		+ recipe.plus_flag);
-		if (num < 0)
-			padding_len--;
-	}
-	else
-		padding_len -= (num_length + recipe.plus_flag + recipe.space_flag);
-	return (padding_len);
-}
 
 static void	deal_with_left_pads(t_recipe recipe, long long num,
 int num_length, char **converted_number)
@@ -95,7 +76,7 @@ static void	check_recipe(t_recipe *recipe, long long num)
 	}
 }
 
-int			calculate_return(t_recipe recipe, int num_length, long long num)
+static int	calculate_return(t_recipe recipe, int num_length, long long num)
 {
 	if (recipe.width >= num_length && recipe.width > recipe.precision)
 		return (recipe.width);
