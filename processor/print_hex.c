@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 11:06:51 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/09 10:58:30 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/12 15:09:56 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void	deal_with_left_pads(int num_length,
 t_recipe *recipe)
 {
-	if (recipe->width && !recipe->minus_flag && !recipe->precision)
+	if (recipe->width && !recipe->minus_flag && recipe->precision <= 0)
 	{
 		if (recipe->zero_flag)
 			write_padding('0', recipe->width - num_length);
@@ -26,9 +26,7 @@ t_recipe *recipe)
 	}
 	if (recipe->width && !recipe->minus_flag && recipe->precision)
 	{
-		if (recipe->precision < 0)
-			write_padding(' ', recipe->width);
-		if (recipe->precision < num_length && recipe->precision > 0)
+		if (recipe->precision <= num_length && recipe->precision > 0)
 			write_padding(' ', recipe->width - num_length);
 		if (recipe->precision > num_length && recipe->precision > 0)
 			write_padding(' ', recipe->width - recipe->precision);
@@ -37,7 +35,7 @@ t_recipe *recipe)
 
 static void	deal_with_precision(int num_length, t_recipe recipe)
 {
-	if (recipe.precision)
+	if (recipe.precision > 0)
 	{
 		if (num_length < recipe.precision)
 			write_padding('0', recipe.precision - num_length);
@@ -47,13 +45,11 @@ static void	deal_with_precision(int num_length, t_recipe recipe)
 static void	deal_with_right_pads(int num_length,
 t_recipe recipe)
 {
-	if (recipe.width && recipe.minus_flag && !recipe.precision)
+	if (recipe.width && recipe.minus_flag && recipe.precision <= 0)
 		write_padding(' ', recipe.width - num_length);
-	if (recipe.width && recipe.minus_flag && recipe.precision)
+	if (recipe.width && recipe.minus_flag && recipe.precision > 0)
 	{
-		if (recipe.precision < 0)
-			write_padding(' ', recipe.width);
-		if (recipe.precision < num_length && recipe.precision > 0)
+		if (recipe.precision <= num_length && recipe.precision > 0)
 			write_padding(' ', recipe.width - num_length);
 		if (recipe.precision > num_length && recipe.precision > 0)
 			write_padding(' ', recipe.width - recipe.precision);
@@ -67,7 +63,7 @@ int num_length, t_recipe recipe)
 
 	amount_printed = num_length;
 	if (recipe.null_precision && !num)
-		return (0);
+		return (recipe.width);
 	if (recipe.hash_flag)
 	{
 		amount_printed += 2;
@@ -90,7 +86,7 @@ int			print_hex(va_list *arguments, t_recipe recipe)
 	int						num_length;
 	char					*converted_num;
 
-	if (recipe.precision)
+	if (recipe.precision > 0 || recipe.null_precision)
 		recipe.zero_flag = 0;
 	num = deal_with_length(arguments, recipe);
 	num_length = count_num_length(num, 16, recipe);
