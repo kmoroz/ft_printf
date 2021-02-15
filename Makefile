@@ -6,7 +6,7 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/02/12 15:33:15 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/02/15 11:53:03 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,5 +56,7 @@ fclean: clean
 	rm -f $(NAME) $(LIBFT_DIR)$(LIBFT)
 
 re: fclean all
+
+bonus: $(NAME)
 
 .PHONY: all clean fclean re
