@@ -6,11 +6,10 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/03 10:38:22 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/12 16:04:04 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/15 16:22:07 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include <stdlib.h>
 
 static int	count_converted_num_length(long long int number, int base)
