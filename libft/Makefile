@@ -6,13 +6,14 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/10 19:37:56 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/02/12 16:06:35 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/02/17 16:54:46 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 SRC_FILES = ft_isdigit.c ft_isalpha.c \
-ft_itoa_base.c ft_strlen.c
+ft_itoa_base.c ft_strlen.c \
+ft_strcpy.c
 HEADER_FILES = libft.h
 CFLAGS = -g -Wall -Wextra -Werror
 OBJ_FILES = $(SRC_FILES:.c=.o)
