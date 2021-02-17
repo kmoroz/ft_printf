@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/18 14:07:39 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/12 16:02:35 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/17 13:31:52 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ char				*handle_conversion(unsigned long long num,
 t_recipe recipe);
 void				deal_with_prefix(t_recipe *recipe,
 unsigned long long num);
-int					print_d_i_u(va_list *arguments, t_recipe recipe);
+int					print_d_i(va_list *arguments, t_recipe recipe);
+int					print_u(va_list *arguments, t_recipe recipe);
+int					count_num_length_unsigned(unsigned long long number,
+int base);
+char				*ft_itoa_base_unsigned(unsigned long long number,
+int base, char *digits_str);
 long long			deal_with_length_signed(va_list *arguments,
 t_recipe recipe);
 unsigned long long	deal_with_length_unsigned(va_list *arguments,

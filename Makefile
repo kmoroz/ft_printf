@@ -6,7 +6,7 @@
 #    By: ksmorozo <ksmorozo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/18 14:53:34 by ksmorozo      #+#    #+#                  #
-#    Updated: 2021/02/15 11:58:56 by ksmorozo      ########   odam.nl          #
+#    Updated: 2021/02/17 13:18:06 by ksmorozo      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,10 @@ PROCESSOR_DIR = processor/
 PROCESSOR_SRC_FILES = print.c \
 print_char.c write_padding.c \
 print_hex.c count_num_length.c \
-print_d_i_u.c print_percent.c \
+print_d_i.c print_percent.c \
 print_ptr.c print_str.c \
-print_d_i_u_utils.c print_hex_utils.c
+print_d_i_u_utils.c print_hex_utils.c \
+print_u.c
 
 LIBFT_DIR = libft/
 LIBFT =	libft.a

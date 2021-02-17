@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   print_d_i_u.c                                      :+:    :+:            */
+/*   print_d_i.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/02/05 11:03:38 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/12 16:01:25 by ksmorozo      ########   odam.nl         */
+/*   Created: 2021/02/17 13:16:43 by ksmorozo      #+#    #+#                 */
+/*   Updated: 2021/02/17 13:21:12 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	calculate_return(t_recipe recipe, int num_length, long long num)
 	return (num_length + recipe.plus_flag + recipe.space_flag);
 }
 
-int			print_d_i_u(va_list *arguments, t_recipe recipe)
+int			print_d_i(va_list *arguments, t_recipe recipe)
 {
 	long long int	num;
 	int				num_length;
@@ -95,7 +95,7 @@ int			print_d_i_u(va_list *arguments, t_recipe recipe)
 	char			*temp;
 	int				padding_len;
 
-	num = handle_length_specifier(arguments, recipe);
+	num = deal_with_length_signed(arguments, recipe);
 	check_recipe(&recipe, num);
 	num_length = count_num_length(num, 10, recipe);
 	padding_len = count_padding_len(recipe, num_length, num);

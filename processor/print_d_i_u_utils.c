@@ -6,11 +6,12 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/08 14:44:59 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/12 16:02:06 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/17 13:41:34 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include <stdlib.h>
 
 long long			deal_with_length_signed(va_list *arguments, t_recipe recipe)
 {
@@ -47,14 +48,6 @@ t_recipe recipe)
 	return (num);
 }
 
-unsigned long long	handle_length_specifier(va_list *arguments, t_recipe recipe)
-{
-	if (recipe.type == 'd' || recipe.type == 'i')
-		return (deal_with_length_signed(arguments, recipe));
-	else
-		return (deal_with_length_unsigned(arguments, recipe));
-}
-
 int					count_padding_len(t_recipe recipe, int num_length,
 long long num)
 {
@@ -73,4 +66,45 @@ long long num)
 	else
 		padding_len -= (num_length + recipe.plus_flag + recipe.space_flag);
 	return (padding_len);
+}
+
+int					count_num_length_unsigned(unsigned long long number,
+int base)
+{
+	int count;
+
+	count = 0;
+	if (number == 0)
+		return (1);
+	while (number)
+	{
+		number = number / base;
+		count++;
+	}
+	return (count);
+}
+
+char				*ft_itoa_base_unsigned(unsigned long long number,
+int base, char *digits_str)
+{
+	char	*conversion;
+	int		num_length;
+
+	num_length = count_num_length_unsigned(number, base);
+	conversion = (char*)malloc(num_length + 1);
+	if (!conversion)
+		return (NULL);
+	conversion[num_length] = '\0';
+	if (number == 0)
+	{
+		conversion[0] = '0';
+		return (conversion);
+	}
+	while (number)
+	{
+		num_length--;
+		conversion[num_length] = digits_str[number % base];
+		number = number / base;
+	}
+	return (conversion);
 }
