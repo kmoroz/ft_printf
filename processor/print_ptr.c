@@ -6,7 +6,7 @@
 /*   By: ksmorozo <ksmorozo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/02/05 11:11:03 by ksmorozo      #+#    #+#                 */
-/*   Updated: 2021/02/16 11:14:56 by ksmorozo      ########   odam.nl         */
+/*   Updated: 2021/02/17 14:14:18 by ksmorozo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ int	print_ptr(va_list *arguments, t_recipe recipe)
 	if (!address_str)
 		return (-1);
 	length = ft_strlen(address_str) + 2;
+	if (recipe.null_precision && address_arg == 0)
+		length = 2;
 	if (recipe.width && !recipe.minus_flag)
 		write_padding(' ', recipe.width - length);
 	write(1, "0x", 2);
-	if (!recipe.null_precision && address_str)
+	if (!recipe.null_precision && address_arg != 0)
 		write(1, address_str, ft_strlen(address_str));
 	if (recipe.width && recipe.minus_flag)
 		write_padding(' ', recipe.width - length);
