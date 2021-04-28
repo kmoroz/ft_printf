@@ -4,7 +4,7 @@
 
 `ft_printf(const char *, ...)` is a part of Codam (42 network) curriculum for 2020 cohort. The aim is to implement your own version of the libc’s `printf()`. 
 
-The syntax is as follows: `%[🎌flags][↔️width][⚫.precision][📏length][🔡type]`. Every specifier, apart from the type field (i.e. `c`, `s`) is optional.
+The syntax is as follows: `%[🎌flags][↔️width][⚫.precision][📏length][🔡type]`. Every specifier, apart from the type field (i.e. `c`, `s`), is optional.
 
 ## ❕ Mandatory Part
 
